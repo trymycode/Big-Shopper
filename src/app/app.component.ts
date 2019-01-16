@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor( private auth: AuthService , router: Router ){
+  constructor( 
+    private auth: AuthService,
+    private router: Router ){
     auth.user$.subscribe(user => {
       if(user){
         let returnUrl = localStorage.getItem('returnUrl');
@@ -16,7 +18,5 @@ export class AppComponent {
       }
     })
   }
-  logout() {
-    this.auth.logout();
-  }
+  
 }
