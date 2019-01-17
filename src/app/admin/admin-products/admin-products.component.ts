@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-export class AdminProductsComponent implements OnDestroy {
+export class AdminProductsComponent {
   public products: any[] = [];
   public filteredProducts: any[];
   public subscriber: Subscription;
@@ -21,8 +21,8 @@ export class AdminProductsComponent implements OnDestroy {
     )
    }
 
-  ngOnDestroy() {
-    this.subscriber.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscriber.unsubscribe();
+  // }
 
 }
