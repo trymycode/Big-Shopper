@@ -9,4 +9,7 @@ export class ProductServiceService {
   create(product){
     this.db.list('/products').push(product);
   }
+  getAllProducts() {
+    return this.db.list('/products');
+  }
 }
