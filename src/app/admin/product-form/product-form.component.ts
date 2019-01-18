@@ -1,6 +1,6 @@
 import { ProductServiceService } from './../../product-service.service';
 import { CategoryService } from './../../category.service';
-import { Component} from '@angular/core';
+import { Component, OnDestroy} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnDestroy {
   public id: string;
   public product:any = [];
   public subscriber: Subscription;
-  categories$;
+  public categories;
   constructor( 
     private router: Router,
     private route: ActivatedRoute,
@@ -21,7 +21,9 @@ export class ProductFormComponent {
     private productService:ProductServiceService
     )
     { 
-     this.categories$ =  categoryService.getCategories();
+      this.subscriber = categoryService.getAll().subscribe(
+        data => this.categories = data
+      );
 
      this.id = this.route.snapshot.paramMap.get('id');
      if(this.id) this.productService.getProduct(this.id).pipe(
@@ -32,21 +34,22 @@ export class ProductFormComponent {
        }
      )
     }
+    ngOnDestroy() {
+      this.subscriber.unsubscribe();
+    }
+    delete(){
+      if(confirm('Are you sure you want to delete this product?')){
+        this.productService.deleteProduct(this.id);
+        this.router.navigate(['/admin/products']);
+      }
+    }
 
-  save(product){
-    this.productService.createProduct(product);
-    this.router.navigate(['/admin/products']);
-    if(this.id) this.productService.updateProduct(this.id, product );
-    else this.productService.createProduct(product);
-    this.router.navigate(['/admin/products']);
-  }
- 
-  delete(){
-    if(confirm('Are you sure you want to delete this product?')){
-      this.productService.deleteProduct(this.id);
+    save(product) {
+      (this.id) ? this.productService.updateProduct(this.id, product) : this.productService.createProduct(product);
       this.router.navigate(['/admin/products']);
     }
-  }
+ 
+  
   
 
 }
