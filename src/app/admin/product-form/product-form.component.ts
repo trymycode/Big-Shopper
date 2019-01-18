@@ -34,7 +34,10 @@ export class ProductFormComponent {
     }
 
   save(product){
-    this.productService.create(product);
+    this.productService.createProduct(product);
+    this.router.navigate(['/admin/products']);
+    if(this.id) this.productService.updateProduct(this.id, product );
+    else this.productService.createProduct(product);
     this.router.navigate(['/admin/products']);
   }
  

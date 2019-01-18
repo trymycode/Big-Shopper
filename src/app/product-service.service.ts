@@ -6,8 +6,8 @@ import { AngularFireDatabase } from '@angular/fire/database';
 export class ProductServiceService {
 
   constructor( private db: AngularFireDatabase ) { }
-  create(product){
-    this.db.list('/products').push(product);
+  createProduct(product){
+    return this.db.list('/products').push(product);
   }
   getAllProducts() {
     return this.db.list('/products');
@@ -15,5 +15,8 @@ export class ProductServiceService {
   getProduct(id){
     return this.db.object('/products/'+ id)
     .valueChanges();
+  }
+  updateProduct(id, product) {
+    return this.db.object('/products/'+id).update(product);
   }
 }
