@@ -6,12 +6,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-export class AdminProductsComponent {
+export class AdminProductsComponent implements OnDestroy {
   public products: any[] = [];
   public filteredProducts: any[];
   public subscriber: Subscription;
-  constructor( private productService:ProductServiceService) {
-    this.productService.getAllProducts()
+  constructor( private productService:ProductServiceService)
+   {
+    this.subscriber = this.productService.getAllProducts()
     .snapshotChanges().subscribe(
       data => data.forEach((element, index)=>{
       this.products.push(element.payload.val());
@@ -20,9 +21,13 @@ export class AdminProductsComponent {
       })
     )
    }
+   filter(query: string) {
+    this.filteredProducts = (query) ? this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase())) : this.products;
+  }
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
+  }
 
-  // ngOnDestroy() {
-  //   this.subscriber.unsubscribe();
-  // }
+  
 
 }
