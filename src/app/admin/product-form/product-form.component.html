@@ -27,10 +27,10 @@
       <div class="form-group">
         <label for="category">Category</label>
         <select #category="ngModel" [(ngModel)]=
-        "product.category"name="category" name="category" id="category" class="form-control mb-2" required>
+        "product.category" name="category" id="category" class="form-control mb-2" required>
           <option value=""></option>
-          <option *ngFor="let c of categories$ | async" [value]="c.name">
-            {{ c.name }}
+          <option *ngFor="let category of categories" [value]="category.name">
+            {{ category.name }}
           </option>
         </select>
         <div class="alert alert-danger" *ngIf="category.touched && category.invalid">

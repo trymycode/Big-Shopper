@@ -4,20 +4,38 @@
 <p>
   <input type="text" #query class="form-control" placeholder="Search..." (keyup)="filter(query.value)">
 </p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Price</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of filteredProducts;index as i">
-      
-      <td>{{product.title}}</td>
-      <td>{{product.price | currency:'USD': 'symbol'}}</td>
-      <td><a [routerLink]='["/admin/products/",product.key]'>Edit</a></td>
-    </tr>
-  </tbody>
-</table>
+<table class="table" [mfData]="filteredProducts" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+      <tr>
+        <th></th>
+        <th style="width: 40%">
+          <mfDefaultSorter by='title'>
+            Title
+          </mfDefaultSorter>
+        </th>
+        <th style="width: 40%">
+          <mfDefaultSorter by='price'>
+            Price
+          </mfDefaultSorter>
+        </th>
+        <th style="width: 40%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let product of mf.data; index as i'>
+        <td>{{i + 1}}</td>
+        <td>{{product.title}}</td>
+        <td>{{product.price | currency : 'USD' : 'symbol'}}</td>
+        <td>
+          <a [routerLink]='["/admin/products/",product.key]'>Edit</a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+          <td colspan="4">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10]"></mfBootstrapPaginator>
+          </td>
+      </tr>
+      </tfoot>
+  </table>
