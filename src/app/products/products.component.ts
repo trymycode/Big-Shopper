@@ -1,3 +1,4 @@
+import { ProductServiceService } from './../product-service.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class ProductsComponent  {
+  products$;
+  constructor( productService: ProductServiceService ) {
+   this.products$= productService.getAllProducts().valueChanges();
+   }
+ 
 
 }
