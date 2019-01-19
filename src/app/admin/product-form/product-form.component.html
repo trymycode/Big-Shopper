@@ -29,8 +29,8 @@
         <select #category="ngModel" [(ngModel)]=
         "product.category" name="category" id="category" class="form-control mb-2" required>
           <option value=""></option>
-          <option *ngFor="let category of categories" [value]="category.name">
-            {{ category.name }}
+          <option *ngFor="let category of categories" [value]="category.payload.key">
+              {{category.payload.val().name}}
           </option>
         </select>
         <div class="alert alert-danger" *ngIf="category.touched && category.invalid">

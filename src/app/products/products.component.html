@@ -1,22 +1,42 @@
 <div class="row">
-  <ng-container *ngFor="let product of products$ | async; let i = index">
-    <div class="col">
-      <div class="card mb-3" style="width: 15rem;"  >
-          <img 
-          [src]="product.imageUrl" class="card-img-top" 
-          alt='{{product.title}}'>
-  
-          <div class="card-body">
-            <h5 class="card-title">
-              {{product.title}}
-            </h5>
-            <p class="card-text">{{product.price | currency : 'USD' : 'symbol'}}
-            </p>
-            <a href="" class="btn btn-primary">Add to Cart</a>
-          </div>
+    <div class="col-3">
+          <div class="list-group">
+            <a 
+            class="list-group-item list-group-item-action" [class.active]='!selectedCategory' routerLink='/'>
+              All Categories
+            </a>
+            <a 
+            *ngFor='let category of categories'
+            routerLink='/'
+            [queryParams]='{category: category.payload.key}'
+            class="list-group-item list-group-item-action"  
+            [class.active]='selectedCategory === category.payload.key'>
+              {{category.payload.val().name}}
+            </a>
+        </div>
       </div>
+  <div class="col">
+      <div class="row">
+          <ng-container *ngFor="let product of filteredProducts; index as i">
+            <div class="col">
+              <div class="card mb-3" *ngIf='product.title' style="width:15rem">
+                <img class="card-img-top" [src]='product.imageUrl' alt='{{product.title}}'>
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{product.title}}
+                  </h5>
+                  <p class="card-text">{{product.price | currency : 'USD' : 'symbol'}}</p>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary btn-block">Add to Cart</button>
+                </div>
+              </div>
+          </div>
+           <div *ngIf="(i + 1)% 2 === 0" class="w-100"></div>
+          </ng-container>
+        </div>
+        
   </div>
-   <div *ngIf="(i + 1)% 2 === 0" class="w-100"></div>
-  </ng-container>
 </div>
+
 
