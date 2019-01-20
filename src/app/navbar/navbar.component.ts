@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   public collapsed:boolean = true;
   public appUser: AppUser;
   cart$: Observable<ShoppingCart>;
-  shoppingCartItemCount: number;
+
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
   }
@@ -27,15 +27,8 @@ export class NavbarComponent implements OnInit {
   }
   async ngOnInit(){
     this.auth.appUser$.subscribe( appUser => this.appUser = appUser );
-
-    let cart$ = await this.shoppingCartService.getCart();
-
-    cart$.subscribe( cart=> {
-      this.shoppingCartItemCount = 0;
-      for(let productId in cart.items)
-       this.shoppingCartItemCount += cart.items[productId].quantity;
-      
-    });
+    this.cart$ =
+     await this.shoppingCartService.getCart();
   }
   
   logout() {
