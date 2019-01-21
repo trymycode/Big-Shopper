@@ -1,6 +1,6 @@
-import { ProductServiceService } from './../../product-service.service';
 import { Component, OnDestroy } from '@angular/core';
 import { CategoryService } from 'src/app/category.service';
+import { ProductService } from 'src/app/product.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ export class ProductFormComponent implements OnDestroy {
     private categoryService: CategoryService,
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductServiceService
+    private productService: ProductService
   ) {
     this.subscriber = categoryService.getAll().subscribe(
       data => this.categories = data
@@ -41,7 +41,12 @@ export class ProductFormComponent implements OnDestroy {
     this.subscriber.unsubscribe();
   }
 
-  
+  delete() {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.productService.deleteProduct(this.id);
+      this.router.navigate(['/admin/products']);
+    }
+  }
 
   save(product) {
     (this.id) ? this.productService.updateProduct(this.id, product) : this.productService.createProduct(product);

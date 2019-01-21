@@ -4,6 +4,7 @@ import { AppUser } from '../models/app-user';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { Observable } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,7 +12,7 @@ import { ShoppingCart } from '../models/shopping-cart';
 })
 export class NavbarComponent implements OnInit {
 
-  public collapsed:boolean = true;
+  public collapsed: boolean = true;
   public appUser: AppUser;
   cart$: Observable<ShoppingCart>;
 
@@ -19,18 +20,17 @@ export class NavbarComponent implements OnInit {
     this.collapsed = !this.collapsed;
   }
 
-  constructor( 
+  constructor(
     private auth: AuthService,
-    private shoppingCartService: ShoppingCartService 
-    ) {
-    
+    private shoppingCartService: ShoppingCartService
+  ) {
   }
-  async ngOnInit(){
-    this.auth.appUser$.subscribe( appUser => this.appUser = appUser );
-    this.cart$ =
-     await this.shoppingCartService.getCart();
+
+  async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    this.cart$ = await this.shoppingCartService.getCart();
   }
-  
+
   logout() {
     this.auth.logout();
   }

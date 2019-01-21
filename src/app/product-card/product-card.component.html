@@ -1,43 +1,16 @@
-<div class="card mb-1" *ngIf='product.title' style="width:18rem">
-      <img 
-      *ngIf="product.imageUrl"   class="card-img-top" 
-      [src]='product.imageUrl' 
-      alt='{{product.title}}'>
-
-      <div class="card-body">
-        <h5 class="card-title">
-          {{product.title}}
-        </h5>
-        <p class="card-text">{{product.price | currency : 'USD' : 'symbol'}}</p>
-      </div>
-      <div class="card-footer" *ngIf="showActions">
-        <button 
-          *ngIf="getQuantity() === 0; else updateQuantity"
-          class="btn btn-secondary btn-block"
-          (click)="addToCart(product)">Add to Cart</button>
-          <ng-template #updateQuantity>
-            <div class="row no-gutters">
-              <div class="col-2">
-                <button 
-                class="btn btn-secondary btn-block"
-                (click)="removeFromCart()"
-                >
-                  -
-                </button>
-              </div>
-              <div class="col text-center">
-                  {{getQuantity()}} in cart
-              </div>
-              <div class="col-2">
-                  <button 
-                  (click)="addToCart()"
-                  class="btn btn-secondary btn-block">
-                    +
-                  </button>
-               </div>
-            </div>
-          </ng-template>
-         <div></div>
-      </div>
-</div>
-
+<div class="card mb-3" *ngIf='product.title'>
+    <img class="card-img-top" [src]='product.imageUrl' *ngIf='product.imageUrl' alt='{{product.title}}'>
+    <div class="card-body">
+      <h5 class="card-title">{{product.title}}</h5>
+      <p class="card-text">{{product.price | currency : 'INR' : 'symbol'}}</p>
+    </div>
+    <div class="card-footer" *ngIf='showActions && shoppingCart'>
+      <button (click)='addToCart()' *ngIf='getQuantity() === 0; else updateQuantity' class="btn btn-success btn-block">
+        Add to Cart
+      </button>
+      <ng-template #updateQuantity>
+        <app-product-quantity [product]='product' [shopping-cart]='shoppingCart'></app-product-quantity>
+      </ng-template>
+    </div>
+  </div>
+  
