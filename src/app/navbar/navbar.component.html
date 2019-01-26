@@ -1,42 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:#D8E5E2">
     <div class="container">
-      <a class="navbar-brand" routerLink='/'>Shopper</a>
+      <a class="navbar-brand" routerLink='/'>
+        <i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i>
+        Big Shopper</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapsed()">
         <span class="navbar-toggler-icon"></span>
       </button>
   
       <div id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/shopping-cart">
-              Shopping Cart
-              <span class="badge badge-warning badge-pill" *ngIf='cart$ | async as cart'>{{cart.totalItemsCount}}</span>
-            </a>
-          </li>
-          <ng-template #anonymousUser>
+          <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" routerLink="/login">Login</a>
+              <a class="nav-link" routerLink="/shopping-cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 30px"></i>
+                <span class="badge badge-secondary badge-pill" *ngIf='cart$ | async as cart'>{{cart.totalItemsCount}}</span>
+              </a>
             </li>
-          </ng-template>
-          <li ngbDropdown class="nav-item dropdown-menu-lg-right" *ngIf='appUser ; else anonymousUser'>
-            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"
-              >
-              {{appUser.name}}
-            </a>
-            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown" style="margin-left: 2rem">
-              <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
-              <div class="dropdown-divider"></div>
-              <ng-container *ngIf='appUser.isAdmin'>
-                <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
-                <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
-              </ng-container>
-              <a class="dropdown-item" (click)='logout()'>Logout</a>
-            </div>
-          </li>
-        </ul>
-      </div>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <ng-template #anonymousUser>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/login"><i class="fa fa-user ml-2"></i>Login</a>
+              </li>
+            </ng-template>
+            <li ngbDropdown class="nav-item dropdown" *ngIf='appUser ; else anonymousUser'>
+
+              <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+               <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 1.8rem;margin-right: 4px"></i>
+               <span style="font-size: 1.2rem">{{appUser.name}}</span> 
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
+                <div class="dropdown-divider"></div>
+                <ng-container *ngIf='appUser.isAdmin'>
+                  <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
+                  <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
+                </ng-container>
+                <a class="dropdown-item" (click)='logout()'>Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
     </div>
   </nav>
   
