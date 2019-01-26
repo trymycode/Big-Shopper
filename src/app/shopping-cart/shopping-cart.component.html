@@ -1,5 +1,5 @@
 <h1>Shopping Cart</h1>
-<ng-container *ngIf='carts$ | async as cart'>
+<div class="row col-10" *ngIf='carts$ | async as cart'>
   <p>
     You have {{cart.totalItemsCount}} items in your shopping cart.
   </p>
@@ -8,8 +8,8 @@
       <tr>
         <th></th>
         <th class="text-left"><h4>Product</h4></th>
-        <th><h4>Quantity</h4></th>
-        <th><h4>Price</h4></th>
+        <th class="qWidth text-center"><h4>Quantity</h4></th>
+        <th class="pWidth text-right"><h4>Price</h4></th>
       </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
           <td>
             <app-product-quantity [product]='cart.items[productId].product' [shopping-cart]='cart'></app-product-quantity>
           </td>
-          <td>{{cart.items[productId].quantity * cart.items[productId].product.price | currency : 'INR' : 'symbol'}}</td>
+          <td class="text-right">{{cart.items[productId].quantity * cart.items[productId].product.price | currency : 'INR' : 'symbol'}}</td>
         </ng-container>
       </tr>
     </tbody>
@@ -31,11 +31,11 @@
         <th>Total</th>
         <td></td>
         <td></td>
-        <th>{{cart.totalPrice | currency : 'INR' : 'symbol'}}</th>
+        <th class="text-right">{{cart.totalPrice | currency : 'INR' : 'symbol'}}</th>
       </tr>
     </tfoot>
   </table>
-  <button (click)='clearCart(cart)' class="btn btn-danger btn-sm">
+  <button (click)='clearCart(cart)' class="btn btn-outline-danger btn-sm">
     Clear Shopping Cart
   </button>
-</ng-container>
+</div>

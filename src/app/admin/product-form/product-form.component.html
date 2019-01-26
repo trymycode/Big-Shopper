@@ -13,7 +13,7 @@
           <label for="price">Price</label>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
+              <span class="input-group-text">Rs.</span>
             </div>
             <input #price='ngModel' [(ngModel)]='product.price' name="price" type="number" id="price" class="form-control"
               required [min]='0'>
@@ -54,7 +54,7 @@
           </div>
         </div>
         <button class="btn btn-primary">Save</button>
-        <button class="btn btn-danger" (click)='delete()' type="button">Delete</button>
+        <button class="btn btn-danger ml-2" (click)='delete()' type="button">Delete</button>
       </form>
     </div>
     <div class="col-md-6">
