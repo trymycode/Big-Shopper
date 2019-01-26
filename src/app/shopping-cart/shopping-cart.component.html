@@ -7,9 +7,9 @@
     <thead class="thead">
       <tr>
         <th></th>
-        <th class="text-left"><h4>Product</h4></th>
-        <th class="qWidth text-center"><h4>Quantity</h4></th>
-        <th class="pWidth text-right"><h4>Price</h4></th>
+        <th class="text-left"><h3>Product</h3></th>
+        <th class="qWidth text-center"><h3>Quantity</h3></th>
+        <th class="pWidth text-right"><h3>Price</h3></th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
           <td>
             <div [style.backgroundImage]="'url('+cart.items[productId].product.imageUrl+')'" class="thumbnail"></div>
           </td>
-          <td class="text-left">{{cart.items[productId].product.title}}</td>
+          <td class="text-left"><h5>{{cart.items[productId].product.title}}</h5></td>
           <td>
             <app-product-quantity [product]='cart.items[productId].product' [shopping-cart]='cart'></app-product-quantity>
           </td>
@@ -28,14 +28,17 @@
     </tbody>
     <tfoot>
       <tr>
-        <th>Total</th>
+        <th class="text-right">Total</th>
         <td></td>
         <td></td>
         <th class="text-right">{{cart.totalPrice | currency : 'INR' : 'symbol'}}</th>
       </tr>
     </tfoot>
   </table>
-  <button (click)='clearCart(cart)' class="btn btn-outline-danger btn-sm">
+  <a 
+   routerLink="/check-out" class="btn btn-primary mr-2 mb-2">Check Out
+  </a>
+  <button (click)='clearCart(cart)' class="btn btn-outline-danger btn-sm mb-2">
     Clear Shopping Cart
   </button>
 </div>

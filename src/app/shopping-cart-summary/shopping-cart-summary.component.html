@@ -1,0 +1,17 @@
+<div class="card border-info mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Order Summary</h5>
+      <ng-container *ngIf='cart'>
+        <p class="card-text">You have {{cart?.totalItemsCount || 0}} items in your shopping cart.</p>
+        <button class="btn btn-info btn-sm mb-3"  (click)='populateList()'>Show Details</button>
+        <ul class="list-group list-group-flush" *ngIf='keys'>
+            <li class="list-group-item" *ngFor='let key of keys'>{{cart.items[key].product.title}} x {{cart.items[key].quantity}} 
+              <div class="float-right text-bold">{{cart.items[key].product.price*cart.items[key].quantity | currency : 'INR' : 'symbol'}}</div>
+            </li>
+            <li class="list-group-item font-weight-bold">Total
+              <div class="float-right">{{cart.totalPrice | currency : 'INR' : 'symbol'}}</div>
+            </li>
+        </ul>
+      </ng-container>
+    </div>
+  </div>
