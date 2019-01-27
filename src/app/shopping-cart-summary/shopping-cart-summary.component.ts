@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ShoppingCart } from '../models/shopping-cart';
-import { KeyRegistry } from '@angular/core/src/di/reflective_key';
+// import { KeyRegistry } from '@angular/core/src/di/reflective_key';
 
 @Component({
   selector: 'app-cart-summary',
